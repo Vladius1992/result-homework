@@ -1,0 +1,33 @@
+.app {
+	text-align: center;
+}
+
+.screen {
+	font-size: 40px;
+	border: 1px solid black;
+}
+
+.resultScreen {
+	color: blue;
+}
+
+.buttons {
+	display: flex;
+}
+
+.leftGroup {
+	width: 240px;
+}
+
+.rightGroup {
+	display: flex;
+	flex-direction: column;
+	margin-left: 30px;
+}
+
+.button {
+	width: 60px;
+	height: 60px;
+	margin: 10px;
+	font-size: 30px;
+}
