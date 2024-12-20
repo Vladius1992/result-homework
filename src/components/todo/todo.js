@@ -1,42 +1,34 @@
-import { Button } from '../button/button';
+import React from 'react';
 import styles from './todo.module.css';
+import { useTodos } from '../TodosContext';
 
-export const Todo = ({
-	title,
-	completed,
-	isEditing,
-	onEdit,
-	onTitleChange,
-	onCompletedChange,
-	onSave,
-	onRemove,
-}) => {
+export const Todo = ({ id, title, completed, isEditing }) => {
+	const {
+		onTodoEdit,
+		onTodoTitleChange,
+		onTodoCompletedChange,
+		onTodoRemove,
+		onTodoSave,
+	} = useTodos();
 	return (
 		<div className={styles.todo}>
+			{isEditing ? (
+				<input
+					type="text"
+					value={title}
+					onChange={(event) => onTodoTitleChange(id, event.target.value)}
+					onBlur={() => onTodoSave(id)}
+				/>
+			) : (
+				<span onDoubleClick={() => onTodoEdit(id)}>{title}</span>
+			)}
+
 			<input
-				className={styles.checkbox}
 				type="checkbox"
 				checked={completed}
-				onChange={({ target }) => onCompletedChange(target.checked)}
+				onChange={(event) => onTodoCompletedChange(id, event.target.checked)}
 			/>
-			<div className={styles.title}>
-				{isEditing ? (
-					<input
-						type="text"
-						value={title}
-						onChange={({ target }) => onTitleChange(target.value)}
-					/>
-				) : (
-					<div onClick={onEdit}>{title}</div>
-				)}
-			</div>
-			<div>
-				{isEditing ? (
-					<Button onClick={onSave}>✎</Button>
-				) : (
-					<Button onClick={onRemove}>✖</Button>
-				)}
-			</div>
+			<button onClick={() => onTodoRemove(id)}>Удалить</button>
 		</div>
 	);
 };
